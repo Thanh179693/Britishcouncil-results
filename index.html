@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>IELTS Test Taker Portal | British Council</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f5f7fa;
+            color: #1a2c3e;
+            line-height: 1.5;
+        }
+
+        /* Header */
+        .header {
+            background: white;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 16px 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0a2540;
+        }
+
+        .logo-area span {
+            color: #e85d04;
+        }
+
+        .logo-area p {
+            font-size: 0.7rem;
+            color: #5a6874;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .nav-links a.active {
+            color: #e85d04;
+            border-bottom: 2px solid #e85d04;
+            padding-bottom: 4px;
+        }
+
+        .account-btn {
+            background: #0a2540;
+            color: white !important;
+            padding: 8px 18px;
+            border-radius: 40px;
+        }
+
+        /* Main */
+        .main-content {
+            padding: 32px 0 48px;
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 4px;
+            background: white;
+            border-radius: 12px;
+            padding: 4px;
+            margin-bottom: 28px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+        }
+
+        .tab {
+            flex: 1;
+            text-align: center;
+            padding: 12px 16px;
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            color: #5a6874;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #0a2540;
+            color: white;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .test-info h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #0a2540;
+        }
+
+        .test-info p {
+            font-size: 0.8rem;
+            color: #6c7a8a;
+            margin-top: 4px;
+        }
+
+        .success-badge {
+            background: #e6f7e6;
+            color: #2e7d32;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* Overall Score Box */
+        .overall-box {
+            background: linear-gradient(135deg, #0a2540 0%, #1e4a76 100%);
+            color: white;
+            padding: 32px 24px;
+            text-align: center;
+        }
+
+        .overall-label {
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.8;
+        }
+
+        .overall-score {
+            font-size: 5rem;
+            font-weight: 800;
+            line-height: 1;
+            margin: 12px 0 8px;
+        }
+
+        .modest-user {
+            background: rgba(255,255,255,0.2);
+            display: inline-block;
+            padding: 5px 16px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+        }
+
+        .description-text {
+            max-width: 700px;
+            margin: 20px auto 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            padding: 24px;
+            background: white;
+            border-bottom: 1px solid #eef2f6;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            background: #0a2540;
+            color: white;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-secondary {
+            background: #f0f4f8;
+            color: #0a2540;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            color: #2c3e50;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Scores Grid */
+        .scores-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: #e2e8f0;
+        }
+
+        .score-card {
+            background: white;
+            padding: 24px 16px;
+            text-align: center;
+        }
+
+        .skill-name {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .skill-score {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #0a2540;
+        }
+
+        /* Detailed Explanation */
+        .explanation-section {
+            padding: 28px 24px;
+            background: white;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .skill-detail {
+            margin-bottom: 32px;
+            border-bottom: 1px solid #edf2f7;
+            padding-bottom: 24px;
+        }
+
+        .skill-detail:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .skill-detail h3 {
+            font-size: 1.3rem;
+            color: #0a2540;
+            margin-bottom: 12px;
+        }
+
+        .skill-detail .band {
+            font-size: 1.1rem;
+            color: #e85d04;
+            font-weight: 600;
+            margin-bottom: 16px;
+        }
+
+        .skill-detail p {
+            color: #2d3e50;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .improve-box {
+            background: #f8fafc;
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 12px;
+            border-left: 3px solid #e85d04;
+        }
+
+        .improve-box strong {
+            color: #0a2540;
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a2540;
+            color: #a0b3c9;
+            padding: 32px 0 24px;
+            margin-top: 24px;
+            font-size: 0.8rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #a0b3c9;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: white;
+        }
+
+        @media (max-width: 700px) {
+            .scores-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .overall-score {
+                font-size: 3.5rem;
+            }
+            .nav-links {
+                gap: 16px;
+            }
+            .header-flex {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <div class="container">
+        <div class="header-flex">
+            <div class="logo-area">
+                <h1>BRITISH <span>COUNCIL</span></h1>
+                <p>IELTS Test Taker Portal</p>
+            </div>
+            <div class="nav-links">
+                <a href="#" class="active">Tests & results</a>
+                <a href="#">Book new test</a>
+                <a href="#">Preparation</a>
+                <a href="#">Help & contact</a>
+                <a href="#" class="account-btn">My account</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="main-content">
+    <div class="container">
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab active">Date & location</button>
+            <button class="tab">Test Taker</button>
+            <button class="tab">Results</button>
+            <button class="tab">Recognising Organisations</button>
+            <button class="tab">Payments</button>
+        </div>
+
+        <!-- Main Result Card -->
+        <div class="result-card">
+            <div class="card-header">
+                <div class="test-info">
+                    <h2>IELTS Academic: 4 April 2026</h2>
+                    <p>Trung Thanh Tran • British Council Hanoi</p>
+                    <p>Reference: A3-VN002-S-14431310 | TRF number: 26VN500489TRAT002A</p>
+                </div>
+                <div class="success-badge">✔ Your results are now available</div>
+            </div>
+
+            <!-- Overall Band -->
+            <div class="overall-box">
+                <div class="overall-label">Your overall band score</div>
+                <div class="overall-score">5.5</div>
+                <div class="modest-user">This means you're a "Modest User"</div>
+                <div class="description-text">
+                    The test taker has a partial command of the language and copes with overall meaning in most situations, although they are likely to make many mistakes. They should be able to handle basic communication in their own field.
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <a href="#" class="btn-primary">📄 Download your Test Report Form</a>
+                <a href="#" class="btn-secondary">📤 Share results with organisations</a>
+                <a href="#" class="btn-outline">📈 See my options</a>
+            </div>
+
+            <!-- Individual Scores (Grid) -->
+            <div class="scores-grid">
+                <div class="score-card">
+                    <div class="skill-name">Listening</div>
+                    <div class="skill-score">6.0</div>
+                </div>
+                <div class="score-card">
+                    <div class="skill-name">Reading</div>
+                    <div class="skill-score">5.5</div>
+                </div>
+                <div class="score-card">
+                    <div class="skill-name">Writing</div>
+                    <div class="skill-score">5.5</div>
+                </div>
+                <div class="score-card">
+                    <div class="skill-name">Speaking</div>
+                    <div class="skill-score">5.0</div>
+                </div>
+            </div>
+
+            <!-- Full Score Explanation Section (like in your screenshots) -->
+            <div class="explanation-section">
+                <h3 style="font-size: 1.4rem; margin-bottom: 20px;">Your full score and explanation</h3>
+                
+                <!-- Listening 6.0 -->
+                <div class="skill-detail">
+                    <h3>Listening <span style="color:#e85d04;">6.0</span></h3>
+                    <p>Test takers at Band 6 can typically listen to and process stretches of speech to pick out discrete information, and can follow detailed instructions. They can understand directly-stated facts, attitudes, opinions and purposes. They are able to pick out main ideas and infer implied meanings reasonably well. They can keep sections of what they have heard in short-term memory. They can understand vocabulary relating to familiar and some less familiar topics.</p>
+                    <div class="improve-box">
+                        <strong>📈 How to improve:</strong> Continue learning more words on more topics. Learn common words and expressions used in talks and presentations to signal organisation. Listen regularly to authentic recordings and video clips on TV or the internet. Use subtitles to help if needed. Try to understand the relationship between different speakers' ideas.
+                    </div>
+                </div>
+
+                <!-- Reading 5.5 -->
+                <div class="skill-detail">
+                    <h3>Reading <span style="color:#e85d04;">5.5</span></h3>
+                    <p>Test takers at Band 5.5 typically deal reasonably well with straightforward factual and opinion-based texts. They are able to use vocabulary knowledge to create meaning, but mostly within sentences rather than across sentences. They can understand directly stated information, opinions and arguments, and some implied meanings. They are generally able to extract key words from texts, and have a limited ability to synthesize concrete information.</p>
+                    <div class="improve-box">
+                        <strong>📈 How to improve:</strong> Read different types of texts, including academic ones. Use different reading strategies: decide which parts need careful reading and which can be skimmed. Make predictions based on titles. Identify clues that signal important points or the writer's attitude.
+                    </div>
+                </div>
+
+                <!-- Writing 5.5 -->
+                <div class="skill-detail">
+                    <h3>Writing <span style="color:#e85d04;">5.5</span></h3>
+                    <p>Test takers at Band 5.5 can partly answer the question. They may include too much detail and no overview. They can give their own point of view and some main ideas, although these may not lead to conclusions. They can partly organise writing and use some joining words, though sometimes wrongly. They have enough vocabulary to answer the question, although spelling mistakes may cause difficulty. They can use some basic sentences correctly and attempt complex sentences with errors.</p>
+                    <div class="improve-box">
+                        <strong>📈 How to improve:</strong> Practice writing one-sentence summaries of your main points. Put different points in different paragraphs. Check that your writing matches the task type (letter, report, essay). After writing, combine simple sentences into complex ones. Check spelling carefully.
+                    </div>
+                </div>
+
+                <!-- Speaking 5.0 -->
+                <div class="skill-detail">
+                    <h3>Speaking <span style="color:#e85d04;">5.0</span></h3>
+                    <p>Test takers at Band 5 can keep speaking but with noticeable pauses. Speech may be slow, with frequent repetition or self-correction. Basic linking of ideas exists, but ideas may be difficult to follow at times. They have enough vocabulary for familiar topics, but frequent errors occur. They rarely attempt paraphrase. Basic grammar structures are sometimes accurate, but complex structures are rare. Pronunciation problems may cause misunderstanding.</p>
+                    <div class="improve-box">
+                        <strong>📈 How to improve:</strong> Learn vocabulary on unfamiliar topics. Write sentences using new words, then combine them into longer sentences. Read aloud and focus on pronunciation. Group words that naturally go together. Listen to English programmes to improve pronunciation and fluency.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Didn't get the score you needed? section -->
+            <div style="padding: 20px 24px 28px; background: #fef9e6; border-top: 1px solid #ffe2b5;">
+                <h3 style="color: #b85c00; margin-bottom: 12px;">📘 Didn't get the score you needed?</h3>
+                <p style="margin-bottom: 16px;">If you didn't get the score you needed, you might be able to improve it. Explore your options for retaking the test or accessing preparation materials.</p>
+                <a href="#" class="btn-outline" style="background: white; border-color: #e85d04; color:#e85d04;">See my options →</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="footer">
+    <div class="container">
+        <div class="footer-links">
+            <a href="#">Terms of use</a>
+            <a href="#">Accessibility</a>
+            <a href="#">Privacy and cookies</a>
+            <a href="#">Data Protection</a>
+        </div>
+        <p>© 2026 British Council</p>
+        <p>The United Kingdom's international organisation for cultural relations and educational opportunities.<br>
+        A registered charity: 209131 (England and Wales) SC037733 (Scotland).</p>
+    </div>
+</div>
+
+<script>
+    // Simple tab simulation (just for visual consistency)
+    document.querySelectorAll('.tab').forEach(tab => {
+        tab.addEventListener('click', function() {
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            this.classList.add('active');
+            // In a real portal, this would load different content
+        });
+    });
+</script>
+</body>
+</html>
